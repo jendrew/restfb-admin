@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl" layout:decorator="layout/base"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<section layout:fragment="content">
+
+    <form th:object="${post}" th:action="@{/publish}" method="post" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-md-6">
+
+
+                <!-- Treść posta -->
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Treść posta</label>
+                    <textarea class="form-control" th:field="*{message}" id="exampleFormControlTextarea1"
+                              rows="12"></textarea>
+                </div>
+
+                <hr/>
+
+                <!-- Link -->
+                <div class="form-group">
+                    <label for="linkUrl">URL linku</label>
+                    <input type="url" th:field="*{linkUrl}" class="form-control" id="linkUrl"/>
+                    <small class="form-text text-muted"></small>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="picture">URL zdjęcia do linku</label>
+                    <input type="url" th:field="*{picture}" class="form-control" id="picture"/>
+                    <small class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+
+                    <label for="name">Tytuł linku</label>
+                    <input type="text" th:field="*{name}" class="form-control" id="name"/>
+                    <small class="form-text text-muted">Duży tytuł pod zdjęciem (raczej zassie się sam)</small>
+                </div>
+                <div class="form-group">
+
+                    <label for="description">Lead</label>
+                    <input type="text" th:field="*{description}" class="form-control" id="description"/>
+                    <small class="form-text text-muted">Lead pod tytułem</small>
+                </div>
+                <div class="form-group">
+
+                    <label for="caption">Podpis pod leadem</label>
+                    <input type="text" th:field="*{caption}" class="form-control" id="caption"/>
+                    <small class="form-text text-muted">Mały podpis pod treścią leadu. Zassie się sam</small>
+                </div>
+
+                <hr/>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Zdjęcie (.jpg)</label>
+                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1"/>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('date') ? 'has-danger' : ''}">
+
+                    <label for="caption">Zaplanuj</label>
+                    <input type="datetime-local" th:field="*{date}" class="form-control" id="caption"
+                           th:classappend="${#fields.hasErrors('date') ? 'form-control-warning' : ''}"/>
+                    <div class="form-control-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">An
+                        error occured
+                    </div>
+                    <small class="form-text text-muted">Mały podpis pod treścią leadu. Zassie się sam</small>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group h-100" th:classappend="${#fields.hasErrors('accounts') ? 'has-danger' : ''}">
+                    <label for="exampleFormControlSelect2">Wybierz fanpage</label>
+                    <select th:multiple="multiple" th:field="*{accounts}" class="form-control h-100"
+                            th:classappend="${#fields.hasErrors('accounts') ? 'form-control-warning' : ''}"
+                            id="exampleFormControlSelect2">
+                        <option th:each="account:${accounts}" th:text="${account.name}"
+                                th:value="${account.id}"></option>
+
+                    </select>
+                    <div class="form-control-feedback" th:if="${#fields.hasErrors('accounts')}" th:errors="*{accounts}">An
+                        error occured
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="my-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a th:href="@{/signout}" class="btn btn-primary">Logout</a>
+        </div>
+
+
+    </form>
+
+
+
+</section>
+
+
+</body>
+</html>

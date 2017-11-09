@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl" layout:decorator="layout/bare"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="robots" content="noindex" />
+</head>
+
+<body>
+<section layout:fragment="content">
+
+
+
+    <div class="row align-items-center mt-5">
+        <div class="col-md-6 push-md-2">
+            <h1>Please, log in</h1>
+
+            <form th:action="@{${action}}" th:object="${user}" method="post">
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('username') ? 'has-danger' : ''}">
+                    <input type="text" class="form-control" id="inputUsername" aria-describedby="usernameHelp"
+                           placeholder="Enter Username"
+                           th:field="*{username}"
+                           th:classappend="${#fields.hasErrors('username') ? 'form-control-warning' : ''}"/>
+                    <div class="form-control-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                        An error
+                        occured
+                    </div>
+                    <!--<small id="usernameHelp" class="form-text text-muted">Enter username</small>-->
+                </div>
+
+                <input type="password" class="form-control" id="inputPassword" aria-describedby="passwordHelp"
+                       placeholder="Enter Password"
+                       th:field="*{password}"
+                       th:classappend="${#fields.hasErrors('password') ? 'form-control-warning' : ''}"/>
+                <div class="form-control-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">An
+                    error
+                    occured
+                </div>
+                <!--<small id="passwordHelp" class="form-text text-muted">Enter username</small>-->
+
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+</body>
+</html>
+
